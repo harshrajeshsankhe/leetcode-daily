@@ -33,5 +33,4 @@ solutions/
 
 ---
 
-*Last Updated: 2026-03-13*
-*Generated automatically by [LeetCode AI Daily](https://github.com/)*
+
