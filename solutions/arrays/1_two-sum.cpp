@@ -4,14 +4,12 @@ Problem: Two Sum
 Problem Number: 1
 Difficulty: Easy
 Topic: arrays
-Date: 2026-03-13
+Date: 2026-03-15
 
 Approach:
-Scan the array once while storing each seen value and its index in a hash map.
-For each number x, check whether (target - x) already exists in the map; if it does, we found the pair.
-This yields the first valid pair in linear time by leveraging O(1) average-time lookups.
+Use a hash map from value to its index while scanning the array once. For each number x, check if (target - x) already exists in the map; if so, we have found the required pair and return their indices. Otherwise, store x with its index and continue. This achieves a one-pass solution with constant average-time lookups.
 
-Time Complexity: O(n) average (O(n^2) worst-case with pathological hashing)
+Time Complexity: O(n) average
 Space Complexity: O(n)
 */
 
@@ -32,10 +30,10 @@ public:
             if (it != pos.end()) {
                 return {it->second, i};
             }
-            // Store current value after checking to avoid using the same element twice.
+            // Store after checking to avoid using the same element twice.
             pos[nums[i]] = i;
         }
-        return {}; // Per problem statement, a solution always exists.
+        return {}; // As per problem constraints, this line is unreachable.
     }
 };
 ```
