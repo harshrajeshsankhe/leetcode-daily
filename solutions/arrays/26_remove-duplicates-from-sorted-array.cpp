@@ -4,10 +4,12 @@ Problem: Remove Duplicates from Sorted Array
 Problem Number: 26
 Difficulty: Easy
 Topic: arrays
-Date: 2026-03-13
+Date: 2026-03-15
 
 Approach:
-Since the array is sorted, duplicates appear in consecutive positions. Use two pointers: a write index k for the next unique position, and a read index i that scans the array. Whenever nums[i] differs from the last written unique value nums[k-1], write it to nums[k] and increment k. Return k as the count of unique elements.
+Use two pointers: a write index that tracks the position to place the next unique value, and a read index that scans the array.
+Because the array is sorted, duplicates are adjacent; whenever nums[read] differs from the last kept value nums[write-1], write it at nums[write] and increment write.
+Return write as the new length; the first write elements form the deduplicated array in-place.
 
 Time Complexity: O(n)
 Space Complexity: O(1)
@@ -19,13 +21,14 @@ public:
         const int n = static_cast<int>(nums.size());
         if (n == 0) return 0;
 
-        int k = 1; // nums[0] is always unique
-        for (int i = 1; i < n; ++i) {
-            if (nums[i] != nums[k - 1]) {
-                nums[k++] = nums[i];
+        int write = 1; // next position to write a new unique value
+        for (int read = 1; read < n; ++read) {
+            // Since sorted, a new unique appears when current differs from last kept
+            if (nums[read] != nums[write - 1]) {
+                nums[write++] = nums[read];
             }
         }
-        return k;
+        return write;
     }
 };
 ```
