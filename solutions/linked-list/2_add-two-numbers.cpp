@@ -4,15 +4,15 @@ Problem: Add Two Numbers
 Problem Number: 2
 Difficulty: Medium
 Topic: linked-list
-Date: 2026-03-13
+Date: 2026-03-15
 
 Approach:
 Traverse both linked lists simultaneously, adding corresponding digits along with a carry.
-Create the result list on the fly using a dummy head, appending a new node for each computed digit.
-Continue until both lists are exhausted and no carry remains.
+Create the resulting list on the fly using a dummy head to simplify pointer handling.
+Continue until both lists are exhausted and no carry remains, appending each computed digit as a new node.
 
-Time Complexity: O(n + m)
-Space Complexity: O(1) auxiliary (excluding the output list)
+Time Complexity: O(max(m, n))
+Space Complexity: O(max(m, n))  // for the output list
 */
 
 /**
@@ -41,7 +41,6 @@ public:
             tail->next = new ListNode(sum % 10);
             tail = tail->next;
         }
-
         return dummy.next;
     }
 };
