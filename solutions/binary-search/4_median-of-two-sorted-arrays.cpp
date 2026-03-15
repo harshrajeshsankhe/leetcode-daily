@@ -7,56 +7,56 @@ Topic: binary-search
 Date: 2026-03-15
 
 Approach:
-Use binary search on the smaller array to find a partition such that the left halves of both arrays contain exactly half (or half+1) of the total elements, and every element on the left is <= every element on the right. At each step, adjust the partition based on boundary comparisons between the two arrays around the cut. Once a valid partition is found, compute the median from the max of left side (and min of right side for even total length).
+Use binary search on the smaller array to find a partition such that all elements on the left side of both arrays are <= all elements on the right side.
+Let i be the cut in the first array and j be the cut in the second so that i + j = (m + n + 1) / 2, ensuring the left side has the extra element when total length is odd.
+When the partition is valid (A[i-1] <= B[j] and B[j-1] <= A[i]), compute the median from the boundary elements around the cuts.
 
-Time Complexity: O(log(min(m,n)))
+Time Complexity: O(log(min(m, n)))
 Space Complexity: O(1)
 */
 
 class Solution {
 public:
     double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2) {
-        // Ensure nums1 is the smaller array to minimize binary search range.
+        // Ensure nums1 is the smaller array to keep binary search minimal.
         if (nums1.size() > nums2.size()) return findMedianSortedArrays(nums2, nums1);
 
         const int m = (int)nums1.size();
         const int n = (int)nums2.size();
-        const int total = m + n;
-        const int half = (total + 1) / 2; // left side size (includes median when odd)
+        const int leftSize = (m + n + 1) / 2; // Left partition size (includes median when odd).
 
-        int lo = 0, hi = m; // partition i in [0..m], partition j = half - i
-
+        int lo = 0, hi = m; // i in [0..m]
         while (lo <= hi) {
             int i = lo + (hi - lo) / 2;
-            int j = half - i;
+            int j = leftSize - i;
 
-            // Use sentinels for out-of-bounds.
+            // Boundary values around cuts; use sentinels to avoid bounds checks.
             int Aleft  = (i == 0) ? std::numeric_limits<int>::min() : nums1[i - 1];
             int Aright = (i == m) ? std::numeric_limits<int>::max() : nums1[i];
             int Bleft  = (j == 0) ? std::numeric_limits<int>::min() : nums2[j - 1];
             int Bright = (j == n) ? std::numeric_limits<int>::max() : nums2[j];
 
-            // Check if partition is valid.
+            // Check if we found the correct partition.
             if (Aleft <= Bright && Bleft <= Aright) {
-                // Found correct partition.
+                // Correct partition: compute median.
                 int leftMax = std::max(Aleft, Bleft);
-                if (total % 2 == 1) return (double)leftMax;
+                if (((m + n) & 1) == 1) return (double)leftMax;
 
                 int rightMin = std::min(Aright, Bright);
                 return (leftMax + rightMin) / 2.0;
             }
 
-            // Move partition i.
+            // Adjust binary search based on which side violates ordering.
             if (Aleft > Bright) {
-                // i is too big, move left.
+                // Aleft too big: move i left.
                 hi = i - 1;
             } else {
-                // Bleft > Aright => i is too small, move right.
+                // Bleft > Aright: move i right.
                 lo = i + 1;
             }
         }
 
-        // Inputs are guaranteed valid; this should not be reached.
+        // Should never reach here for valid input.
         return 0.0;
     }
 };
