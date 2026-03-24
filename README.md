@@ -2,17 +2,17 @@
 
 | Metric | Count |
 |--------|-------|
-| Total Problems Solved | 45 |
-| Easy | 14 |
+| Total Problems Solved | 48 |
+| Easy | 16 |
 | Medium | 26 |
-| Hard | 5 |
+| Hard | 6 |
 
 ## Progress
 
 ```
-Easy:   ██████████████ 14
+Easy:   ████████████████ 16
 Medium: ██████████████████████████ 26
-Hard:   █████ 5
+Hard:   ██████ 6
 ```
 
 ## Repository Structure
