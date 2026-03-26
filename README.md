@@ -2,16 +2,16 @@
 
 | Metric | Count |
 |--------|-------|
-| Total Problems Solved | 57 |
+| Total Problems Solved | 60 |
 | Easy | 20 |
-| Medium | 29 |
+| Medium | 32 |
 | Hard | 8 |
 
 ## Progress
 
 ```
 Easy:   ████████████████████ 20
-Medium: █████████████████████████████ 29
+Medium: ████████████████████████████████ 32
 Hard:   ████████ 8
 ```
 
